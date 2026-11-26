@@ -1,0 +1,76 @@
+{
+ "run": "docs/results/bag_go2_20261105_165413/walking_cpd2d",
+ "label": "walking, CPD registration (2D BEV)",
+ "summary": {
+  "frames": 595,
+  "valid_frames": 595,
+  "registration_methods": {
+   "cpd": 595
+  },
+  "effective_pipeline_rate_hz": 2.165208877660515,
+  "cpu_utilisation_of_one_core": 1.0041249689548195,
+  "max_rss_mb": 262.9453125,
+  "odom_clock_offset_s": null,
+  "angular_density": 290.29861619961713
+ },
+ "metrics": {
+  "frames": 595,
+  "valid_frames": 595,
+  "mean_blobs_per_frame": 55.897478991596635,
+  "mean_low_confirmed": 63.74453781512605,
+  "mean_clusters": 27.119327731092437,
+  "mean_high_tracks": 50.99327731092437,
+  "high_tracks_total": 421,
+  "high_tracks_ge_20_frames": 338,
+  "moving_tracks_disp_ge_5.0m": 121,
+  "static_tracks_disp_lt_1m (false-detection proxy)": 86,
+  "fragmentation_proxy_restarts": 39,
+  "moving_tracks_median_duration_s": 4.2363,
+  "moving_tracks_observed_fraction_median": 0.2962962962962963,
+  "moving_tracks_accel_abs_p50_median": 3.2071717064763305e-05,
+  "moving_tracks_jerk_rms_median (velocity-stability proxy)": 6.76321683932188,
+  "latency_ms": {
+   "ground": {
+    "mean": 5.494250016806723,
+    "p95": 8.44643,
+    "max": 10.8813
+   },
+   "registration": {
+    "mean": 342.33489309243697,
+    "p95": 526.8865,
+    "max": 764.472
+   },
+   "grid": {
+    "mean": 14.128792863865547,
+    "p95": 31.59827999999999,
+    "max": 36.5689
+   },
+   "dynamic": {
+    "mean": 87.68472300840335,
+    "p95": 144.78459999999998,
+    "max": 190.079
+   },
+   "low_level": {
+    "mean": 5.417123947899159,
+    "p95": 7.878099,
+    "max": 15.4376
+   },
+   "clustering": {
+    "mean": 2.399126423529412,
+    "p95": 4.3823989999999995,
+    "max": 5.86157
+   },
+   "high_level": {
+    "mean": 3.1452496991596637,
+    "p95": 4.492789,
+    "max": 5.98348
+   },
+   "total": {
+    "mean": 460.79227226890754,
+    "p95": 657.0428999999998,
+    "max": 860.47
+   }
+  },
+  "note": "Descriptive only: no ground truth for this bag. Proxies are labelled as such."
+ }
+}

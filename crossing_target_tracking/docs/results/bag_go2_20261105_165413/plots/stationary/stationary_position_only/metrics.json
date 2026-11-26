@@ -1,0 +1,76 @@
+{
+ "run": "docs/results/bag_go2_20261105_165413/stationary_position_only",
+ "label": "ablation: position-only clustering",
+ "summary": {
+  "frames": 962,
+  "valid_frames": 962,
+  "registration_methods": {
+   "odom": 962
+  },
+  "effective_pipeline_rate_hz": 13.049030491532594,
+  "cpu_utilisation_of_one_core": 1.0202998382345818,
+  "max_rss_mb": 236.4609375,
+  "odom_clock_offset_s": -2.7329705953598022,
+  "angular_density": 290.29861619961713
+ },
+ "metrics": {
+  "frames": 962,
+  "valid_frames": 962,
+  "mean_blobs_per_frame": 9.464656964656964,
+  "mean_low_confirmed": 8.501039501039502,
+  "mean_clusters": 4.711018711018711,
+  "mean_high_tracks": 8.444906444906445,
+  "high_tracks_total": 148,
+  "high_tracks_ge_20_frames": 127,
+  "moving_tracks_disp_ge_5.0m": 43,
+  "static_tracks_disp_lt_1m (false-detection proxy)": 50,
+  "fragmentation_proxy_restarts": 18,
+  "moving_tracks_median_duration_s": 7.1617999999999995,
+  "moving_tracks_observed_fraction_median": 0.5757575757575758,
+  "moving_tracks_accel_abs_p50_median": 0.0532413764593862,
+  "moving_tracks_jerk_rms_median (velocity-stability proxy)": 1.409409826021985,
+  "latency_ms": {
+   "ground": {
+    "mean": 15.921974573804572,
+    "p95": 28.513509999999997,
+    "max": 36.833
+   },
+   "registration": {
+    "mean": 0.9512633264033264,
+    "p95": 1.7164149999999998,
+    "max": 3.76681
+   },
+   "grid": {
+    "mean": 6.839441767151768,
+    "p95": 11.96374,
+    "max": 58.3011
+   },
+   "dynamic": {
+    "mean": 46.92457287941789,
+    "p95": 92.81711499999999,
+    "max": 142.614
+   },
+   "low_level": {
+    "mean": 2.348578848232848,
+    "p95": 3.9787629999999994,
+    "max": 5.21574
+   },
+   "clustering": {
+    "mean": 0.8216329313929314,
+    "p95": 1.5187899999999999,
+    "max": 2.73939
+   },
+   "high_level": {
+    "mean": 1.424603714137214,
+    "p95": 2.6418894999999987,
+    "max": 3.62889
+   },
+   "total": {
+    "mean": 75.63200428274428,
+    "p95": 137.74684999999997,
+    "max": 215.361
+   }
+  },
+  "note": "Descriptive only: no ground truth for this bag. Proxies are labelled as such."
+ }
+}

@@ -1,0 +1,17 @@
+# Python / build artefacts
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+build/
+install/
+log/
+
+# Large per-frame result tables (regenerate with run_experiments / offline_process).
+# summary.json, plots and the markdown reports are kept.
+crossing_target_tracking/docs/results/**/*.csv
+
+# Datasets and the paper PDF are never committed
+*.db3
+*.mcap
+*.pdf

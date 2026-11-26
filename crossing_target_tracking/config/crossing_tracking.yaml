@@ -1,0 +1,158 @@
+# crossing_target_tracking configuration (shared by the ROS node and the offline tool)
+#
+# Tags:  [paper]  quantity/structure defined in Pieroni et al. 2024, Sec. 3
+#        [eng]    engineering default chosen by us. The paper publishes NO numeric
+#                 values for any tracking parameter (Tables 2-3 are crossing-logic
+#                 parameters only), so EVERY number below is [eng] unless stated.
+# Tracking defaults were selected with the synthetic sweeps in docs/RESULTS.md (Sec. 'Parameter
+# selection'); they are NOT the authors' values.
+# Values marked (bag) were derived from docs/DATASET_REPORT.md for
+# bag_go2_20261105_165413 (Go2 + VLP-16 at 10 Hz).
+
+input:
+  cloud_topic: /velodyne_points        # (bag)
+  odom_topic: /utlidar/robot_odom      # (bag) '' disables odometry
+  sensor_frame: ''                     # '' = PointCloud2 header frame_id (velodyne_go2)
+  min_range: 0.8                       # [eng] m, drop hits on the robot body
+  max_range: 60.0                      # [eng] m
+
+ground:                                # [paper] 3.1.1 RANSAC plane fitting
+  enabled: true
+  distance_threshold: 0.15             # [eng] m inlier distance
+  iterations: 100                      # [eng]
+  min_inliers: 300                     # [eng]
+  max_tilt_deg: 20.0                   # [eng] plane normal vs sensor z (robot pitch up to 8 deg (bag))
+  z_prior: -0.7                        # [eng] (bag) ground at -0.69 m in velodyne_go2
+  z_window: 0.5                        # [eng] candidate band around z_prior; <= 0 disables
+  candidate_max_range: 25.0            # [eng] m
+  max_candidates: 5000                 # [eng]
+  temporal_fallback: true              # [eng] reuse previous plane if RANSAC fails
+  min_height: null                     # [eng] m above plane; null = distance_threshold
+  max_height: 3.0                      # [eng] m above plane (null disables); drops canopies/signs
+  seed: 0
+
+registration:                          # [paper] 3.1.2 (paper: LiDAR odometry with CPD)
+  mode: auto                           # stationary | odom | cpd | auto
+  fixed_frame: odom
+  stationary_frame: ''                 # '' = sensor frame
+  extrinsic_xyz: [0.055, 0.0, 0.39]    # base_link -> velodyne_go2 (hand-measured, go2_tf_offline.launch.py)
+  extrinsic_rpy: [0.0, 0.0, 0.0]
+  odom_stamp_mode: auto_offset         # (bag) odom header stamps are ~2.73 s ahead of the LiDAR clock
+  odom_fixed_offset: 0.0
+  odom_offset_window: 300
+  odom_offset_min_samples: 20
+  odom_max_gap: 0.1                    # [eng] s
+  odom_max_extrapolation: 0.05         # [eng] s
+  odom_buffer_s: 10.0
+  max_speed: 3.0                       # [eng] m/s ego-speed plausibility (Go2)
+  stationary_check_translation: 0.10   # [eng] m
+  auto_fallback: cpd                   # used only when NO odometry is received
+  auto_odom_wait: 2.0                  # s to wait for odometry before using auto_fallback
+  cpd_diagnostic: false                # also run CPD next to odom and log the disagreement
+  cpd_voxel: 0.4                       # [eng] m point selection / subsampling
+  cpd_max_points: 700                  # [eng]
+  cpd_min_range: 1.5
+  cpd_max_range: 30.0
+  cpd_w: 0.2                           # [eng] CPD outlier weight
+  cpd_max_iter: 40
+  cpd_tol: 1.0e-5
+  cpd_planar: false
+  cpd_project_2d: false                # true: register BEV-projected points (implies planar)
+  deskew: true                         # [eng] odom mode: per-point motion compensation using the cloud
+                                       #   'time' field (robot turns up to ~3 deg within one sweep)
+  deskew_bins: 10
+  cpd_max_sigma2: 0.25                 # [eng] m^2 quality gate
+  cpd_min_matched: 0.5                 # [eng]
+  seed: 0
+
+grid:                                  # [paper] 3.1.3-3.1.4, Eqs. (2)-(6)
+  resolution: 0.2                      # [eng] gamma, m/cell
+  size_x: 80.0                         # [eng] N*gamma, m
+  size_y: 80.0                         # [eng] M*gamma, m
+  origin_mode: first_pose              # [paper] grid centred on the initial standing point
+  origin_xy: [0.0, 0.0]                # used with origin_mode: fixed
+  normalization: angular               # [paper] Eqs. (4)-(5); 'raw_count' = ablation baseline only
+  angular_density: auto                # delta [points/rad/layer]; auto = from cloud layout (bag: 290.3)
+  tau_bin: 0.5                         # [eng] Eq. (6)
+  raw_count_threshold: 2               # ablation only
+  roi_max_range: 40.0                  # [eng] m observation range for background / detection
+
+background:                            # [paper] 3.2.1-3.2.2, Eqs. (7)-(9)
+  window: 100                          # [eng] W frames (10 s at 10 Hz)
+  tau_bck: 0.4                         # [eng] occupied in > 40 % of W (4 s) -> background; slow long
+                                       #   vehicles occupying a cell longer than this are absorbed (s9)
+  min_observed_frames: 10              # [eng] per-cell warm-up
+  dilate_kernel: 3                     # [eng] cells, background dilation before subtraction
+  close_kernel: 5                      # [eng] cells, closing of the dynamic image (square element);
+                                       #   bridges the 2-cell gaps of sparse vehicle sides at 25-35 m
+  min_blob_area: 0.12                  # [eng] m^2 (3 cells)
+  max_blob_area: 40.0                  # [eng] m^2
+  connectivity: 8
+  max_frame_gap: 0.5                   # [eng] s, larger gap resets the history
+
+shadow:                                # [paper] 3.2.3
+  enabled: true
+  angular_margin_deg: 1.0              # [eng]
+  range_margin: 0.0                    # [eng] m
+  exclude_blob_dilate: 1               # [eng] cells
+
+low_ekf:                               # [paper] 3.3.1 CT model, Eqs. (10)-(13)
+  sigma_a: 2.0                         # [eng] m/s^2 white acceleration
+  sigma_omega: 0.5                     # [eng] rad/s^2
+  sigma_r: 0.25                        # [eng] m, blob-centroid measurement std
+  init_sigma_v: 5.0                    # [eng] m/s
+  init_sigma_omega: 0.5                # [eng] rad/s
+  omega_max: 2.0                       # [eng] rad/s numerical clamp
+  omega_eps: 1.0e-4
+
+low_manager:                           # [paper] 3.3.2-3.3.3
+  gate: 9.21                           # [eng] tau_G on d_M (Eq. 14 is squared): chi2(2 dof) 99 %
+  confirm_m: 5                         # [eng] M_c  (lets the velocity of a new blob track converge
+  confirm_n: 7                         # [eng] N_c   before it enters the velocity-based clustering)
+  delete_m: 1                          # [eng] M_e
+  delete_n: 8                          # [eng] N_e  (removed after 8 consecutive misses)
+  history_length: 100
+  use_confirmation: true               # [paper]
+
+clustering:                            # [paper] 3.4, Eqs. (16)-(17)
+  tau_d: 3.0                           # [eng] m (blobs of one car side can be ~3 m apart)
+  tau_v: 2.0                           # [eng] m/s
+  use_velocity: true                   # [paper]; false = position-only ABLATION
+  growth: fixpoint                     # interpretation of step 2 (see PAPER_REPRODUCTION.md)
+  include_predicted: false             # only tracks confirmed AND measured at this instant
+  seed: 0                              # reproducible random seed selection
+
+high:                                  # [paper] 3.5, Eq. (18)
+  ekf:
+    sigma_a: 1.5                       # [eng] heavier filtering than low level (paper Fig. 16 choice)
+    sigma_omega: 0.3
+    sigma_r: 0.3                       # unused at high level (see sigma_r_pos / sigma_r_vel)
+    init_sigma_v: 1.0
+    init_sigma_omega: 0.5
+    omega_max: 2.0
+    omega_eps: 1.0e-4
+  sigma_r_pos: 1.0                     # [eng] m  (cluster mean jumps when membership changes)
+  sigma_r_vel: 1.5                     # [eng] m/s
+  manager:
+    gate: 13.28                        # [eng] chi2(4 dof) 99 %
+    confirm_m: 1
+    confirm_n: 1
+    delete_m: 1                        # [eng] M_e
+    delete_n: 15                       # [eng] N_e (1.5 s of shadow / missed detection)
+    history_length: 300
+    use_confirmation: false            # [paper] no confirmation at high level
+  min_heading_speed: 0.5               # [eng] m/s
+
+output:
+  publish_clouds: true
+  publish_ground_cloud: false
+  publish_grids: true
+  publish_tf: true
+  tf_child_frame: crossing_sensor
+  publish_low_level_tentative: false
+  marker_history: true
+  marker_ellipses: true
+  marker_lifetime: 0.3
+  topic_prefix: /crossing_tracking
+  diagnostics_period: 1.0
+  max_rate: 0.0                        # Hz, 0 = every scan

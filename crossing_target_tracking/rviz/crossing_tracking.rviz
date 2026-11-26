@@ -1,0 +1,129 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+    Help Height: 0
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 5
+      Plane Cell Count: 30
+      Reference Frame: crossing_sensor
+      Color: 80; 80; 80
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Show Names: true
+      Marker Scale: 2
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Name: BEV grid (Eq. 6)
+      Enabled: true
+      Topic:
+        Value: /crossing_tracking/bev_grid
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Color Scheme: map
+      Alpha: 0.5
+      Draw Behind: true
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Name: Background (Eq. 8)
+      Enabled: false
+      Topic:
+        Value: /crossing_tracking/background_grid
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Color Scheme: costmap
+      Alpha: 0.5
+      Value: false
+    - Class: rviz_default_plugins/Map
+      Name: Shadow cones
+      Enabled: false
+      Topic:
+        Value: /crossing_tracking/shadow_grid
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Color Scheme: costmap
+      Alpha: 0.4
+      Value: false
+    - Class: rviz_default_plugins/Map
+      Name: Dynamic image F (Eq. 9 + morphology)
+      Enabled: true
+      Topic:
+        Value: /crossing_tracking/dynamic_grid
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Color Scheme: costmap
+      Alpha: 0.8
+      Value: true
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Non-ground cloud
+      Enabled: true
+      Topic:
+        Value: /crossing_tracking/non_ground_cloud
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Style: Points
+      Size (Pixels): 2
+      Color Transformer: AxisColor
+      Axis: Z
+      Alpha: 0.6
+      Decay Time: 0
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Tracking markers
+      Enabled: true
+      Topic:
+        Value: /crossing_tracking/markers
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Namespaces:
+        blobs: true
+        low_level_tracks: true
+        low_level_velocity: true
+        clusters: true
+        cluster_membership: true
+        objects: true
+        object_velocity: true
+        object_ids: true
+        object_history: true
+        object_covariance: true
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 30; 30; 35
+    Fixed Frame: odom
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/Measure
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Current View
+      Scale: 12
+      Target Frame: crossing_sensor
+      X: 0
+      Y: 0
+      Angle: 0
+      Value: TopDownOrtho (rviz_default_plugins)
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1400
+  Displays:
+    collapsed: false

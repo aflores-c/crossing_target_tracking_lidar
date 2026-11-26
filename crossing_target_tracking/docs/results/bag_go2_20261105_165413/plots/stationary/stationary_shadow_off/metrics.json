@@ -1,0 +1,76 @@
+{
+ "run": "docs/results/bag_go2_20261105_165413/stationary_shadow_off",
+ "label": "ablation: shadow off",
+ "summary": {
+  "frames": 962,
+  "valid_frames": 962,
+  "registration_methods": {
+   "odom": 962
+  },
+  "effective_pipeline_rate_hz": 24.90509481276971,
+  "cpu_utilisation_of_one_core": 1.0484438393981617,
+  "max_rss_mb": 236.9375,
+  "odom_clock_offset_s": -2.7329705953598022,
+  "angular_density": 290.29861619961713
+ },
+ "metrics": {
+  "frames": 962,
+  "valid_frames": 962,
+  "mean_blobs_per_frame": 10.012474012474012,
+  "mean_low_confirmed": 9.034303534303534,
+  "mean_clusters": 5.06964656964657,
+  "mean_high_tracks": 9.124740124740125,
+  "high_tracks_total": 160,
+  "high_tracks_ge_20_frames": 134,
+  "moving_tracks_disp_ge_5.0m": 44,
+  "static_tracks_disp_lt_1m (false-detection proxy)": 49,
+  "fragmentation_proxy_restarts": 16,
+  "moving_tracks_median_duration_s": 6.606949999999999,
+  "moving_tracks_observed_fraction_median": 0.5851760851760852,
+  "moving_tracks_accel_abs_p50_median": 0.05847987365917695,
+  "moving_tracks_jerk_rms_median (velocity-stability proxy)": 1.2751141323312332,
+  "latency_ms": {
+   "ground": {
+    "mean": 16.230045207900208,
+    "p95": 27.128894999999996,
+    "max": 33.7375
+   },
+   "registration": {
+    "mean": 1.1063439012474015,
+    "p95": 1.7682449999999998,
+    "max": 2.78395
+   },
+   "grid": {
+    "mean": 6.789455415800415,
+    "p95": 11.49672,
+    "max": 113.087
+   },
+   "dynamic": {
+    "mean": 8.91699553014553,
+    "p95": 14.888679999999997,
+    "max": 17.0167
+   },
+   "low_level": {
+    "mean": 2.741834211018711,
+    "p95": 5.8489305,
+    "max": 10.3749
+   },
+   "clustering": {
+    "mean": 0.9612453991683991,
+    "p95": 1.9489504999999991,
+    "max": 3.78419
+   },
+   "high_level": {
+    "mean": 1.679930155925156,
+    "p95": 3.7718329999999995,
+    "max": 6.7753
+   },
+   "total": {
+    "mean": 38.91930062370062,
+    "p95": 63.35971499999999,
+    "max": 155.684
+   }
+  },
+  "note": "Descriptive only: no ground truth for this bag. Proxies are labelled as such."
+ }
+}

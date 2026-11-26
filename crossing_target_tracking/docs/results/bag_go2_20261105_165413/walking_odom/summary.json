@@ -1,0 +1,260 @@
+{
+ "bag": "/media/cas/TOSHIBA EXT/bags/bag_go2_20261105_165413",
+ "label": "walking, odom registration (+CPD diagnostic)",
+ "start_s": 145.0,
+ "duration_s": 60.0,
+ "frames": 595,
+ "valid_frames": 595,
+ "invalid_frames": 0,
+ "missed_instants": 0,
+ "registration_methods": {
+  "odom": 595
+ },
+ "angular_density": 290.29861619961713,
+ "angular_density_source": "cloud_layout",
+ "odom_clock_offset_s": -2.730193018913269,
+ "grid": {
+  "nx": 400,
+  "ny": 400,
+  "resolution": 0.2,
+  "center": [
+   -170.42406796227507,
+   54.20787969602668
+  ]
+ },
+ "low_level": {
+  "created": 4605,
+  "confirmed": 561,
+  "deleted": 4557
+ },
+ "high_level": {
+  "created": 292,
+  "deleted": 257
+ },
+ "high_level_track_stats": {
+  "n_tracks": 292,
+  "lifetime_frames_median": 35.0,
+  "lifetime_frames_p90": 137.0,
+  "n_tracks_lifetime_ge_20": 219,
+  "n_tracks_lifetime_lt_5": 1,
+  "n_tracks_displacement_lt_1m": 78,
+  "n_tracks_displacement_ge_5m": 111
+ },
+ "latency_ms": {
+  "ground": {
+   "mean": 5.825604166384895,
+   "p50": 5.303304000335629,
+   "p95": 9.29561119992285,
+   "max": 22.876886000176455
+  },
+  "registration": {
+   "mean": 409.0834299377972,
+   "p50": 359.0941929996916,
+   "p95": 611.1435325997262,
+   "max": 1773.6630770000374
+  },
+  "grid": {
+   "mean": 11.899065904216354,
+   "p50": 3.1880569995337282,
+   "p95": 34.64339299998755,
+   "max": 56.36375500034774
+  },
+  "dynamic": {
+   "mean": 58.70822940334711,
+   "p50": 52.92432300029759,
+   "p95": 123.58404770011472,
+   "max": 196.9191589996626
+  },
+  "low_level": {
+   "mean": 3.5387179747855395,
+   "p50": 3.3260840000366443,
+   "p95": 6.0785359001783945,
+   "max": 14.426219000597484
+  },
+  "clustering": {
+   "mean": 1.0346664050157721,
+   "p50": 0.9843819998422987,
+   "p95": 1.8563421995168023,
+   "max": 5.445747000521806
+  },
+  "high_level": {
+   "mean": 1.8937002958035223,
+   "p50": 1.8622830002641422,
+   "p95": 3.0563493003683098,
+   "max": 7.3756379997576005
+  },
+  "total": {
+   "mean": 492.1642659260772,
+   "p50": 431.03349300054106,
+   "p95": 767.3112343995853,
+   "max": 1813.8507120002032
+  }
+ },
+ "pipeline_time_s": 293.2882076189949,
+ "wall_time_s": 298.502125731,
+ "effective_pipeline_rate_hz": 2.0287211846340347,
+ "process_cpu_time_s": 299.632905605,
+ "cpu_utilisation_of_one_core": 1.0037881803060225,
+ "max_rss_mb": 261.23046875,
+ "config": {
+  "input": {
+   "cloud_topic": "/velodyne_points",
+   "odom_topic": "/utlidar/robot_odom",
+   "sensor_frame": "",
+   "min_range": 0.8,
+   "max_range": 60.0
+  },
+  "ground": {
+   "enabled": true,
+   "distance_threshold": 0.15,
+   "iterations": 100,
+   "min_inliers": 300,
+   "max_tilt_deg": 20.0,
+   "z_prior": -0.7,
+   "z_window": 0.5,
+   "candidate_max_range": 25.0,
+   "max_candidates": 5000,
+   "temporal_fallback": true,
+   "min_height": null,
+   "max_height": 3.0,
+   "seed": 0
+  },
+  "registration": {
+   "mode": "auto",
+   "fixed_frame": "odom",
+   "stationary_frame": "",
+   "extrinsic_xyz": [
+    0.055,
+    0.0,
+    0.39
+   ],
+   "extrinsic_rpy": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "odom_stamp_mode": "auto_offset",
+   "odom_fixed_offset": 0.0,
+   "odom_offset_window": 300,
+   "odom_offset_min_samples": 20,
+   "odom_max_gap": 0.1,
+   "odom_max_extrapolation": 0.05,
+   "odom_buffer_s": 10.0,
+   "max_speed": 3.0,
+   "stationary_check_translation": 0.1,
+   "auto_fallback": "cpd",
+   "auto_odom_wait": 2.0,
+   "cpd_diagnostic": true,
+   "cpd_voxel": 0.4,
+   "cpd_max_points": 700,
+   "cpd_min_range": 1.5,
+   "cpd_max_range": 30.0,
+   "cpd_w": 0.2,
+   "cpd_max_iter": 40,
+   "cpd_tol": 1e-05,
+   "cpd_planar": false,
+   "cpd_project_2d": false,
+   "deskew": true,
+   "deskew_bins": 10,
+   "cpd_max_sigma2": 0.25,
+   "cpd_min_matched": 0.5,
+   "seed": 0
+  },
+  "grid": {
+   "resolution": 0.2,
+   "size_x": 80.0,
+   "size_y": 80.0,
+   "origin_mode": "first_pose",
+   "origin_xy": [
+    0.0,
+    0.0
+   ],
+   "normalization": "angular",
+   "angular_density": "auto",
+   "tau_bin": 0.5,
+   "raw_count_threshold": 2,
+   "roi_max_range": 40.0
+  },
+  "background": {
+   "window": 100,
+   "tau_bck": 0.4,
+   "min_observed_frames": 10,
+   "dilate_kernel": 3,
+   "close_kernel": 5,
+   "min_blob_area": 0.12,
+   "max_blob_area": 40.0,
+   "connectivity": 8,
+   "max_frame_gap": 0.5
+  },
+  "shadow": {
+   "enabled": true,
+   "angular_margin_deg": 1.0,
+   "range_margin": 0.0,
+   "exclude_blob_dilate": 1
+  },
+  "low_ekf": {
+   "sigma_a": 2.0,
+   "sigma_omega": 0.5,
+   "sigma_r": 0.25,
+   "init_sigma_v": 5.0,
+   "init_sigma_omega": 0.5,
+   "omega_max": 2.0,
+   "omega_eps": 0.0001
+  },
+  "low_manager": {
+   "gate": 9.21,
+   "confirm_m": 5,
+   "confirm_n": 7,
+   "delete_m": 1,
+   "delete_n": 8,
+   "history_length": 100,
+   "use_confirmation": true
+  },
+  "clustering": {
+   "tau_d": 3.0,
+   "tau_v": 2.0,
+   "use_velocity": true,
+   "growth": "fixpoint",
+   "include_predicted": false,
+   "seed": 0
+  },
+  "high": {
+   "ekf": {
+    "sigma_a": 1.5,
+    "sigma_omega": 0.3,
+    "sigma_r": 0.3,
+    "init_sigma_v": 1.0,
+    "init_sigma_omega": 0.5,
+    "omega_max": 2.0,
+    "omega_eps": 0.0001
+   },
+   "sigma_r_pos": 1.0,
+   "sigma_r_vel": 1.5,
+   "manager": {
+    "gate": 13.28,
+    "confirm_m": 1,
+    "confirm_n": 1,
+    "delete_m": 1,
+    "delete_n": 15,
+    "history_length": 300,
+    "use_confirmation": false
+   },
+   "min_heading_speed": 0.5
+  },
+  "output": {
+   "publish_clouds": true,
+   "publish_ground_cloud": false,
+   "publish_grids": true,
+   "publish_tf": true,
+   "tf_child_frame": "crossing_sensor",
+   "publish_low_level_tentative": false,
+   "marker_history": true,
+   "marker_ellipses": true,
+   "marker_lifetime": 0.3,
+   "topic_prefix": "/crossing_tracking",
+   "diagnostics_period": 1.0,
+   "max_rate": 0.0
+  }
+ },
+ "note": "No ground truth: counts and lifetimes are descriptive, not accuracy metrics."
+}
